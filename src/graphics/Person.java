@@ -15,6 +15,8 @@ public class Person {
     public int x, y;
     private PImage image;
     private PApplet app; 
+    private int Count = 0;
+
     
     public Person(PApplet p, int x, int y, String [] imagePath){
         this.app = p;

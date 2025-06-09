@@ -11,21 +11,23 @@ package graphics;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+
 public class Person {
     public int x, y;
     private PImage image;
     private PApplet app; 
-    private int Count = 0;
-
+    private String [] imagePath;
+    private int count = 0;
     
+        
+        
     public Person(PApplet p, int x, int y, String [] imagePath){
         this.app = p;
         this.x = x;
         this.y = y;
-       
-       
-    }
-    
+        this.image = app.loadImage(imagePath[0]);
+ 
+         }
     public void move (int dx, int dy){
         x += dx;
         y += dy;
@@ -35,6 +37,6 @@ public class Person {
         app.image(image, x, y);
     }
     
-    
-  
+
+        
 }

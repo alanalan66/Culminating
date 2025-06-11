@@ -12,8 +12,8 @@ import java.io.File;
 import processing.core.PApplet;
 
 public class MySketch extends PApplet {
-    private Object person1;
-    private Object fire1;
+    private Character person1;
+    private Fire fire1;
     private boolean showInfo = false; 
     private String [] characterIdle = {"images/characterIdle1.png", "images/characterIdle2.png"};
     private String [][] characterWalk = {
@@ -22,8 +22,8 @@ public class MySketch extends PApplet {
             "images/characterWalkL3.png",
             "images/characterWalkL4.png",
             "images/characterWalkL5.png",
-            "images/characterWalkL6.png" } ,
-    
+            "images/characterWalkL6.png" }
+            ,
             {"images/characterWalkR1.png",
             "images/characterWalkR2.png",
             "images/characterWalkR3.png",
@@ -41,8 +41,8 @@ public class MySketch extends PApplet {
     public void setup(){
 	   //sets the background colour using R,G,B (https://rgbcolorpicker.com/)
         background(255);
-        person1 = new Object(this, 0, 200, characterIdle, characterWalk);
-        fire1 = new Object(this, 100, 0, fire); 
+        person1 = new Character(this, 0, 200, characterIdle, characterWalk);
+        fire1 = new Fire(this, 100, 0, fire); 
     }
     
     

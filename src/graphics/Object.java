@@ -17,6 +17,11 @@ public class Object {
     private PApplet app;
 
 
+        public Object(int x, int y){
+        this.x = x;
+        this.y = y;
+        }
+        
         public Object(PApplet p, int x, int y){
         this.app = p;
         this.x = x;

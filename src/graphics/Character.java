@@ -30,8 +30,10 @@ public class Character extends Object{
      * @param walkPaths
      */
     public Character(PApplet p, int x, int y, String[] idlePaths, String[][] walkPaths){
-        super(p,x,y);
+        super(x,y);
 
+        this.app = p;
+      
         idleImages = new PImage[idlePaths.length];
         for (int i = 0; i < idlePaths.length; i++) {
             idleImages[i] = app.loadImage(idlePaths[i]);

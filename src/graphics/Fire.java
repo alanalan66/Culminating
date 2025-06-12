@@ -15,13 +15,13 @@ public class Fire extends Object{
        public int x, y;
        private PImage[] fireImage;
        private PApplet app;
+       private int count = 0;
 
-        private int count = 0;
-     private int direction = 0;  // 0 = idle, -1 = left, 1 = right
 
 
     public Fire(PApplet p, int x, int y, String[]fire){
-       super(p, x, y);
+       super(x, y);
+       this.app = p;
 
         fireImage = new PImage[fire.length];
         for (int i = 0; i < fire.length; i++) {

@@ -13,8 +13,8 @@ import processing.core.PImage;
 
 public class Object {
     public int x, y;
-    private PImage[] Images;
-    private PApplet app;
+    public PImage[] Images;
+    public PApplet app;
 
 
         public Object(int x, int y){
@@ -26,18 +26,20 @@ public class Object {
         this.app = p;
         this.x = x;
         this.y = y;
-
     }
-    public Object(PApplet p, int x, int y, String[] Path){
-        this.app = p;
-        this.x = x;
-        this.y = y;
-
-        Images = new PImage[Path.length];
-        for (int i = 0; i < Path.length; i++) {
-            Images[i] = app.loadImage(Path[i]);
-        }
         
+    
+    
+    public int getX(){
+        return x;
+    }
+    
+    public int getY(){
+        return x;
+    }
+    
+    public PApplet getApp(){
+        return app;
     }
 
 
@@ -45,6 +47,17 @@ public class Object {
         x += dx;
         y += dy;
     }
+    
+    public void setX(int x){
+        this.x = x;
+    }
 
+    public void setY(int y){
+        this.y = y;
+    }
+    
+    public void setApp(PApplet app){
+        this.app = app;
+    }
     
 }

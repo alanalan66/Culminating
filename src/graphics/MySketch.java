@@ -10,10 +10,12 @@ package graphics;
  */
 import java.io.File;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class MySketch extends PApplet {
     private Character person1;
     private Fire fire1;
+    private PImage backgroundImg;
     private boolean showInfo = false; 
     private String [] characterIdle = {"images/characterIdle1.png", "images/characterIdle2.png"};
     private String [][] characterWalk = {
@@ -36,18 +38,20 @@ public class MySketch extends PApplet {
     public void settings(){
 	   //sets the size of the window
         size (800,400);
+        backgroundImg = loadImage("images/background.png"); 
+
     }
     
     public void setup(){
 	   //sets the background colour using R,G,B (https://rgbcolorpicker.com/)
         background(255);
-        person1 = new Character(this, 0, 200, characterIdle, characterWalk);
+        person1 = new Character(this, 0, 280, characterIdle, characterWalk);
         fire1 = new Fire(this, 100, 0, fire); 
     }
     
     
     public void draw(){
-        background(255,255,255);
+        background(backgroundImg);
         person1.update();
         person1.drawCharacter();
         fire1.drawFire();

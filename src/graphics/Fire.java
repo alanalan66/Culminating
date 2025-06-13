@@ -20,8 +20,10 @@ public class Fire extends Object{
 
 
     public Fire(PApplet p, int x, int y, String[]fire){
-       super(x, y);
+      super(x, y);
        this.app = p;
+
+
 
         fireImage = new PImage[fire.length];
         for (int i = 0; i < fire.length; i++) {
@@ -37,13 +39,13 @@ public class Fire extends Object{
     public void drawFire(){
         PImage currentImage;
             currentImage = fireImage[count % fireImage.length];
-            app.image(currentImage, x, y);
+            app.image(currentImage, super.x, super.y);
      
         if (app.frameCount % 8 == 0) {
             count++;
     }
         
-        move(0, 3);
+        super.move(0, 3);
     }
     
     

@@ -29,11 +29,11 @@ public class Character extends Object{
      * @param idlePaths
      * @param walkPaths
      */
+    
     public Character(PApplet p, int x, int y, String[] idlePaths, String[][] walkPaths){
         super(x,y);
-
         this.app = p;
-      
+  
         idleImages = new PImage[idlePaths.length];
         for (int i = 0; i < idlePaths.length; i++) {
             idleImages[i] = app.loadImage(idlePaths[i]);
@@ -56,15 +56,15 @@ public class Character extends Object{
         // Check key input for movement
         if (app.keyPressed){
             if (app.keyCode == app.LEFT) {
-                move(-5, 0);
+                super.move(-5, 0);
                 direction = -1;
             } else if (app.keyCode == app.RIGHT) {
-                move(5, 0);
+                super.move(5, 0);
                 direction = 1;
             } else if (app.keyCode == app.UP) {
-                move(0, -5);
+                super.move(0, -5);
             } else if (app.keyCode == app.DOWN) {
-                move(0, 5);
+                super.move(0, 5);
             } else {
                 direction = 0;
             }
@@ -89,7 +89,7 @@ public class Character extends Object{
             currentImage = idleImages[count % idleImages.length];
         }
 
-        app.image(currentImage, x, y);
+        app.image(currentImage, super.x, super.y);
     }
   
 }

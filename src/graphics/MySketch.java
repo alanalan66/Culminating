@@ -8,13 +8,13 @@ package graphics;
  *
  * @author 344165857
  */
-import java.io.File;
 import processing.core.PApplet;
 import processing.core.PImage;
+import java.util.ArrayList;
 
 public class MySketch extends PApplet {
     private Character person1;
-    private Fire fire1;
+    private ArrayList<Fire> fires;
     private PImage backgroundImg;
     private boolean showInfo = false; 
     private String [] characterIdle = {"images/characterIdle1.png", "images/characterIdle2.png"};
@@ -46,16 +46,40 @@ public class MySketch extends PApplet {
 	   //sets the background colour using R,G,B (https://rgbcolorpicker.com/)
         background(255);
         person1 = new Character(this, 0, 280, characterIdle, characterWalk);
-        fire1 = new Fire(this, 100, 0, fire); 
-    }
+        fires = new ArrayList<Fire>();
+        for (int i = 0; i < 10; i++) {
+        int randomX = (int) random(50, width - 50);
+        int randomStart = (int) random(0, 200);  // random start frame between 0 and 200
+        fires.add(new Fire(this, randomX, 0, fire, randomStart));
+        }
+      }
     
     
     public void draw(){
+
         background(backgroundImg);
+        stroke(255, 0, 0);    // Red border color
+        strokeWeight(5);      // Border thickness
+        noFill();
+        rect(0, 0, width, height);
         person1.update();
         person1.drawCharacter();
-        fire1.drawFire();
+        for (Fire f : fires) {
+        f.drawFire();
+        }
     }
+    
+    
+    
+    public void keyPressed() {
+    person1.keyPressed();
+}
+
+public void keyReleased() {
+    person1.keyReleased();
+}
+
+
 }
 
     

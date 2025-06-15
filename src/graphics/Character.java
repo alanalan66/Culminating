@@ -17,6 +17,10 @@ public class Character extends Object{
     private PImage[] walkLeftImages;
     private PImage[] walkRightImages;
     private PApplet app;
+    private boolean upPressed = false;
+    private boolean downPressed = false;
+    private boolean leftPressed = false;
+    private boolean rightPressed = false;
 
     private int count = 0;
     private int direction = 0;  // 0 = idle, -1 = left, 1 = right
@@ -55,19 +59,15 @@ public class Character extends Object{
     public void update(){
         // Check key input for movement
         if (app.keyPressed){
-            if (app.keyCode == app.LEFT) {
-                super.move(-5, 0);
-                direction = -1;
-            } else if (app.keyCode == app.RIGHT) {
-                super.move(5, 0);
-                direction = 1;
-            } else if (app.keyCode == app.UP) {
-                super.move(0, -5);
-            } else if (app.keyCode == app.DOWN) {
-                super.move(0, 5);
-            } else {
-                direction = 0;
-            }
+           if (leftPressed) {
+            super.move(-5, 0);
+            direction = -1;
+        } else if (rightPressed) {
+            super.move(5, 0);
+            direction = 1;
+        } else {
+        direction = 0;
+        }
         } else {
             direction = 0;
         }
@@ -91,6 +91,19 @@ public class Character extends Object{
 
         app.image(currentImage, super.x, super.y);
     }
+    public void keyPressed() {
+    if (app.key == 'a' || app.key == 'A') leftPressed = true;
+    if (app.key == 'd' || app.key == 'D') rightPressed = true;
+    if (app.key == 'w' || app.key == 'W') upPressed = true;
+    if (app.key == 's' || app.key == 'S') downPressed = true;
+}
+
+public void keyReleased() {
+    if (app.key == 'a' || app.key == 'A') leftPressed = false;
+    if (app.key == 'd' || app.key == 'D') rightPressed = false;
+    if (app.key == 'w' || app.key == 'W') upPressed = false;
+    if (app.key == 's' || app.key == 'S') downPressed = false;
+}
   
 }
 

@@ -35,7 +35,7 @@ public class Object {
     }
     
     public int getY(){
-        return x;
+        return y;
     }
     
     public PApplet getApp(){

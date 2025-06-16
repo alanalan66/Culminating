@@ -12,7 +12,6 @@ import processing.core.PImage;
  * @author 344165857
  */
 public class Character extends Object{
-     public int x, y;
     private PImage[] idleImages;
     private PImage[] walkLeftImages;
     private PImage[] walkRightImages;
@@ -56,27 +55,30 @@ public class Character extends Object{
     
 
     
-    public void update(){
-        // Check key input for movement
-        if (app.keyPressed){
-           if (leftPressed) {
-            super.move(-5, 0);
-            direction = -1;
-        } else if (rightPressed) {
-            super.move(5, 0);
-            direction = 1;
-        } else {
-        direction = 0;
-        }
-        } else {
-            direction = 0;
-        }
-
-        // Increment count every few frames for animation speed
-        if (app.frameCount % 8 == 0) {
-            count++;
-        }
+    public void update() {
+    if (leftPressed) {
+        super.move(-5, 0);
+        direction = -1;
+    } 
+    if (rightPressed) {
+        super.move(5, 0);
+        direction = 1;
     }
+    if (upPressed) {
+        super.move(0, -5);
+    }
+    if (downPressed) {
+        super.move(0, 5);
+    }
+
+    if (!leftPressed && !rightPressed && !upPressed && !downPressed) {
+        direction = 0;
+    }
+
+    if (app.frameCount % 8 == 0) {
+        count++;
+    }
+}
 
 
     public void drawCharacter(){
@@ -104,6 +106,40 @@ public void keyReleased() {
     if (app.key == 'w' || app.key == 'W') upPressed = false;
     if (app.key == 's' || app.key == 'S') downPressed = false;
 }
+
+
+
+public boolean isCollidingWith(Fire other) {
+    // Get current image dimensions
+    PImage currentImage = idleImages[0];  // or any image since dimensions are usually consistent
+    int charWidth = currentImage.width;
+    int charHeight = currentImage.height;
+
+    // Get fire image dimensions
+    PImage fireImage = other.getCurrentImage();
+    int fireWidth = fireImage.width;
+    int fireHeight = fireImage.height;
+
+    // Bounding box collision detection
+    boolean isLeftOfOtherRight = this.x + charWidth > other.x;
+    boolean isRightOfOtherLeft = this.x < other.x + fireWidth;
+    boolean isAboveOtherBottom = this.y + charHeight > other.y;
+    boolean isBelowOtherTop = this.y < other.y + fireHeight;
+
+    return isLeftOfOtherRight && isRightOfOtherLeft && isAboveOtherBottom && isBelowOtherTop;
+}
   
+
+public PImage getCurrentImage() {
+    if (direction == -1) {
+        return walkLeftImages[count % walkLeftImages.length];
+    } else if (direction == 1) {
+        return walkRightImages[count % walkRightImages.length];
+    } else {
+        return idleImages[count % idleImages.length];
+    }
+}
+
+
 }
 

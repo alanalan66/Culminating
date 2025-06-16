@@ -12,7 +12,6 @@ import processing.core.PImage;
  * @author 344165857
  */
 public class Fire extends Object{
-       public int x, y;
        private PImage[] fireImage;
        private PApplet app;
        private int count = 0;
@@ -54,4 +53,11 @@ public void drawFire() {
         }
     }
 }
+
+
+public PImage getCurrentImage() {
+    return fireImage[count % fireImage.length];
+}
+
+
 }

@@ -2,19 +2,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package graphics;
+
 
 /**
  *
  * @author 344165857
  */
+
+
+import java.io.*;
+import java.util.Scanner;
+
+
 public class introduction extends javax.swing.JFrame {
 
     /**
      * Creates new form introduction
      */
+    
+    private String[] lines = new String[100];
+    private int count = 0;
+    private int currentIndex = 0;
+    
+  
     public introduction() {
         initComponents();
+        loadFile();
     }
 
     /**
@@ -26,21 +39,72 @@ public class introduction extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        introductionText = new javax.swing.JLabel();
+        next = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        introductionText.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+
+        next.setText("Next");
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(141, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(introductionText, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(130, 130, 130))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(next)
+                        .addGap(74, 74, 74))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(introductionText, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(next)
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+ 
+    private void loadFile() {
+    try (Scanner fileInput = new Scanner(new File("src/introduction"))) {
+        while (fileInput.hasNextLine() && count < lines.length) {
+            lines[count] = fileInput.nextLine();
+            count++;
+        }
+    } catch (IOException e) {
+        System.err.println("Java Exception: " + e);
+    }
+}
+    
+    
+    
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+    if (currentIndex < count) {
+        introductionText.setText("<html>" + lines[currentIndex] + "</html>");
+        currentIndex++;
+    }
+     else {
+        new Choice().setVisible(true);
+        this.setVisible(false);
+    }
+
+    }//GEN-LAST:event_nextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +142,7 @@ public class introduction extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel introductionText;
+    private javax.swing.JButton next;
     // End of variables declaration//GEN-END:variables
 }

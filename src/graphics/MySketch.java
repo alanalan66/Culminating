@@ -8,11 +8,15 @@ package graphics;
  *
  * @author 344165857
  */
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import java.util.ArrayList;
+import endings.badEnd;
+
 
 public class MySketch extends PApplet {
+    private boolean badEndShown = false;
     private Character person1;
     private ArrayList<Fire> fires;
     private PImage backgroundImg;
@@ -34,7 +38,7 @@ public class MySketch extends PApplet {
             "images/characterWalkR6.png"}
         };
     private String [] fire = {"images/fire1.png","images/fire2.png","images/fire3.png"};
-    
+      @Override
     public void settings(){
 	   //sets the size of the window
         size (800,400);
@@ -42,8 +46,8 @@ public class MySketch extends PApplet {
 
     }
     
+    @Override
     public void setup(){
-	   //sets the background colour using R,G,B (https://rgbcolorpicker.com/)
         background(255);
         person1 = new Character(this, 0, 280, characterIdle, characterWalk);
         fires = new ArrayList<Fire>();
@@ -54,27 +58,45 @@ public class MySketch extends PApplet {
         }
       }
     
-    
-    public void draw(){
+        @Override
+        public void draw(){
 
-        background(backgroundImg);
-        stroke(255, 0, 0);    // Red border color
-        strokeWeight(5);      // Border thickness
-        noFill();
-        rect(0, 0, width, height);
-        person1.update();
-        person1.drawCharacter();
-        for (Fire f : fires) {
-        f.drawFire();
+            background(backgroundImg);
+            stroke(255, 0, 0);    // Red border color
+            strokeWeight(5);      // Border thickness
+            noFill();
+            rect(0, 0, width, height);
+
+            for (Fire f : fires) {
+            f.drawFire();
+            if (person1.isCollidingWith(f)) {
+            // Teleport character to starting position
+            person1.setX(0);
+            person1.setY(280);
         }
     }
+           person1.update();
+            person1.drawCharacter();
+
+
+
+           if (!badEndShown && person1.getX() + person1.getCurrentImage().width >= width) {
+    badEndShown = true; // so this block runs only once
+    new badEnd().setVisible(true);
+    this.surface.setVisible(false);
+    // Optionally call exit() to stop the sketch cleanly
+    // this.exit();
+}
+
+        }
+
+
     
-    
-    
+      @Override
     public void keyPressed() {
     person1.keyPressed();
 }
-
+  @Override
 public void keyReleased() {
     person1.keyReleased();
 }

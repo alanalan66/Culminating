@@ -25,7 +25,7 @@ public class MySketch extends PApplet {
     private Character person1;
 
     // List of fire hazards
-    private ArrayList<Fire> fires;
+    private ArrayList<Object> objects;
 
     // Background image for the sketch
     private PImage backgroundImg;
@@ -83,17 +83,17 @@ public class MySketch extends PApplet {
      */
     @Override
     public void setup() {
+
         background(255);
+        objects = new ArrayList<Object>();
 
-        // Initialize character at (0, 280)
         person1 = new Character(this, 0, 280, characterIdle, characterWalk);
+        objects.add(person1);
 
-        // Initialize 10 fire hazards with random positions and start frames
-        fires = new ArrayList<Fire>();
         for (int i = 0; i < 10; i++) {
             int randomX = (int) random(50, width - 50);
-            int randomStart = (int) random(0, 200);  // Random start frame between 0 and 200
-            fires.add(new Fire(this, randomX, 0, fire, randomStart));
+            int randomStart = (int) random(0, 200);
+            objects.add(new Fire(this, randomX, 0, fire, randomStart));
         }
     }
 
@@ -102,34 +102,31 @@ public class MySketch extends PApplet {
      * Draws the background, border, fires, and character.
      * Checks for collisions and win/lose conditions.
      */
-    @Override
-    public void draw() {
-        // Draw background image
-        background(backgroundImg);
-
-        // Draw red border around the screen
+        @Override
+        public void draw() {
+           background(backgroundImg);
         stroke(255, 0, 0);
         strokeWeight(5);
         noFill();
         rect(0, 0, width, height);
 
-        // Draw and update fires, check for collisions with character
-        for (Fire f : fires) {
-            f.drawFire();
-            if (person1.isCollidingWith(f)) {
-                // If collision occurs, teleport character to starting position
-                person1.setX(0);
-                person1.setY(280);
+        for (Object o : objects) {
+            o.draw();
+
+            // Collision check only between Character and Fire
+            if (o instanceof Fire) {
+                Fire f = (Fire) o;
+                if (person1.isCollidingWith(f)) {
+                    person1.setX(0);
+                    person1.setY(280);
+                }
             }
         }
 
-        // Update and draw character animation
         person1.update();
-        person1.drawCharacter();
 
-        // Check win/lose condition — if player reaches right side
         if (!badEndShown && person1.getX() + person1.getCurrentImage().width >= width) {
-            badEndShown = true; // Prevents multiple badEnd windows
+            badEndShown = true;
             new badEnd().setVisible(true);
             this.surface.setVisible(false);
         }

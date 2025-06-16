@@ -113,4 +113,8 @@ public class Object {
     public void setApp(PApplet app) {
         this.app = app;
     }
+    
+    
+        public void draw() {
+    }
 }

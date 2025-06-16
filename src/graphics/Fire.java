@@ -22,8 +22,8 @@ public class Fire extends Object {
     // Reference to the Processing sketch
     private PApplet app;
 
-    // Frame counter for image animation cycling
-    private int count = 0;
+    // Frame counter for image animation cSycling
+    private static int count = 0;
 
     // The frame number at which this fire should start falling
     private  int startFrame;
@@ -54,7 +54,8 @@ public class Fire extends Object {
      * If the fire moves off the bottom of the screen, it resets to a random x-position
      * at the top.
      */
-    public void drawFire() {
+    @Override
+    public void draw() {
         // Only start displaying after the designated start frame
         if (app.frameCount >= startFrame) {
             // Get the current image based on frame count for animation

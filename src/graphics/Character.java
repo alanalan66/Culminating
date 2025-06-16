@@ -98,7 +98,8 @@ public class Character extends Object {
      * Draws the character on the screen using the appropriate image
      * based on the current direction and animation frame.
      */
-    public void drawCharacter() {
+    @Override
+    public void draw() {
         PImage currentImage;
         if (direction == -1) {
             currentImage = walkLeftImages[count % walkLeftImages.length];
@@ -161,7 +162,7 @@ public class Character extends Object {
      * @return The current PImage for the character.
      */
     public PImage getCurrentImage() {
-        if (direction == -1) {
+      if (direction == -1) {
             return walkLeftImages[count % walkLeftImages.length];
         } else if (direction == 1) {
             return walkRightImages[count % walkRightImages.length];

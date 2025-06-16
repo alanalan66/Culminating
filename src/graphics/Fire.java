@@ -26,7 +26,7 @@ public class Fire extends Object {
     private int count = 0;
 
     // The frame number at which this fire should start falling
-    private int startFrame;
+    private  int startFrame;
 
     /**
      * Constructor to create a new Fire object.

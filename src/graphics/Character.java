@@ -28,8 +28,6 @@ public class Character extends Object {
     private PApplet app;
 
     // Boolean flags for keypress states
-    private boolean upPressed = false;
-    private boolean downPressed = false;
     private boolean leftPressed = false;
     private boolean rightPressed = false;
 
@@ -85,14 +83,9 @@ public class Character extends Object {
             super.move(5, 0);
             direction = 1;
         }
-        if (upPressed) {
-            super.move(0, -5);
-        }
-        if (downPressed) {
-            super.move(0, 5);
-        }
 
-        if (!leftPressed && !rightPressed && !upPressed && !downPressed) {
+
+        if (!leftPressed && !rightPressed) {
             direction = 0;
         }
 
@@ -123,8 +116,7 @@ public class Character extends Object {
     public void keyPressed() {
         if (app.key == 'a' || app.key == 'A') leftPressed = true;
         if (app.key == 'd' || app.key == 'D') rightPressed = true;
-        if (app.key == 'w' || app.key == 'W') upPressed = true;
-        if (app.key == 's' || app.key == 'S') downPressed = true;
+
     }
 
     /**
@@ -133,8 +125,7 @@ public class Character extends Object {
     public void keyReleased() {
         if (app.key == 'a' || app.key == 'A') leftPressed = false;
         if (app.key == 'd' || app.key == 'D') rightPressed = false;
-        if (app.key == 'w' || app.key == 'W') upPressed = false;
-        if (app.key == 's' || app.key == 'S') downPressed = false;
+
     }
 
     /**
